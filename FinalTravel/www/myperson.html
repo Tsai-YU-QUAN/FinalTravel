@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" rel="stylesheet" />
+
+    <link rel="stylesheet" href="themes/mytheme.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <link rel="stylesheet" href="css/themes/mytheme.css"/>
+    <link rel="stylesheet" href="css/themes/my-custom-theme.css" />
+    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+
+    <link href="css/main.css" rel="stylesheet" />
+</head>
+<body>
+
+        <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+    <div data-role="page" data-theme="a">
+        <div data-role="header" data-position="inline">
+            <h1>我的</h1>
+        </div>
+        <div data-role="content" data-theme="a">
+            <form>
+                <ul data-role="listview" data-inset="true">
+                    <li class="ui-field-contain">
+                        <img src="images/employee.png" class="center" />
+                        <label for="name1">旅遊發表:</label>
+                        <label for="name1">0</label>
+                        <label for="name2">收藏數:</label>
+                        <label for="name2">10</label>
+                        <label for="name3">被收藏:</label>
+                        <label for="name3">0</label>
+                    </li>
+                </ul>
+            </form>
+
+            <div data-role="tabs" id="tabs">
+                <!-- 使用 jquery mobile的tab，以下有7個城市 -->
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#one" data-ajax="false">新北</a></li>
+                        <li><a href="#two" data-ajax="false">新竹</a></li>
+                        <li><a href="#three" data-ajax="false">臺中</a></li>
+                        <li><a href="#four" data-ajax="false">南投</a></li>
+                        <li><a href="#five" data-ajax="false">花蓮</a></li>
+                        <li><a href="#six" data-ajax="false">宜蘭</a></li>
+                        <li><a href="#seven" data-ajax="false">臺南</a></li>
+                    </ul>
+                </div>
+                <!--以下用id把值帶出來; 目的:動態呈現景點-->
+                <div id="one" class="ui-body-d ui-content">
+                    <ul data-role="listview" data-inset="true" data-divider-theme="a">
+                        <li data-role="list-divider">新北</li>
+                        <li><a id="north1"></a></li>
+                        <li><a id="north2"></a></li>
+                        <li><a id="north3"></a></li>
+                        <li><a id="north4"></a></li>
+                        <li><a id="north5"></a></li>
+                        <li><a id="north6"></a></li>
+                        <li><a id="north7"></a></li>
+                        <li><a id="north8"></a></li>
+                        <li><a id="north9"></a></li>
+                        <li><a id="north10"></a></li>
+                    </ul>
+                </div>
+                <div id="two">
+                    <ul data-role="listview" data-inset="true" data-divider-theme="a">
+                        <li data-role="list-divider">新竹</li>
+                        <li><a id="money1"></a></li>
+                        <li><a id="money2"></a></li>
+                        <li><a id="money3"></a></li>
+                        <li><a id="money4"></a></li>
+                        <li><a id="money5"></a></li>
+                        <li><a id="money6"></a></li>
+                        <li><a id="money7"></a></li>
+                        <li><a id="money8"></a></li>
+                        <li><a id="money9"></a></li>
+                        <li><a id="money10"></a></li>
+                    </ul>
+                </div>
+
+                <div id="three">
+                    <ul data-role="listview" data-inset="true" data-divider-theme="a">
+                        <li data-role="list-divider">臺中</li>
+                        <li><a id="center1"></a></li>
+                        <li><a id="center2"></a></li>
+                        <li><a id="center3"></a></li>
+                        <li><a id="center4"></a></li>
+                        <li><a id="center5"></a></li>
+                        <li><a id="center6"></a></li>
+                        <li><a id="center7"></a></li>
+                        <li><a id="center8"></a></li>
+                        <li><a id="center9"></a></li>
+                        <li><a id="center10"></a></li>
+                    </ul>
+                </div>
+
+                <div id="four">
+                    <ul data-role="listview" data-inset="true" data-divider-theme="a">
+                        <li data-role="list-divider">南投</li>
+                        <li><a id="natou1"></a></li>
+                        <li><a id="natou2"></a></li>
+                        <li><a id="natou3"></a></li>
+                        <li><a id="natou4"></a></li>
+                        <li><a id="natou5"></a></li>
+                        <li><a id="natou6"></a></li>
+                        <li><a id="natou7"></a></li>
+                        <li><a id="natou8"></a></li>
+                        <li><a id="natou9"></a></li>
+                        <li><a id="natou10"></a></li>
+                    </ul>
+                </div>
+                <div id="five">
+                    <ul data-role="listview" data-inset="true" data-divider-theme="a">
+                        <li data-role="list-divider">花蓮</li>
+                        <li><a id="flower1"></a></li>
+                        <li><a id="flower2"></a></li>
+                        <li><a id="flower3"></a></li>
+                        <li><a id="flower4"></a></li>
+                        <li><a id="flower5"></a></li>
+                        <li><a id="flower6"></a></li>
+                        <li><a id="flower7"></a></li>
+                        <li><a id="flower8"></a></li>
+                        <li><a id="flower9"></a></li>
+                        <li><a id="flower10"></a></li>
+                    </ul>
+                </div>
+                <div id="six">
+                    <ul data-role="listview" data-inset="true" data-divider-theme="a">
+                        <li data-role="list-divider">宜蘭</li>
+                        <li><a id="east1"></a></li>
+                        <li><a id="east2"></a></li>
+                        <li><a id="east3"></a></li>
+                        <li><a id="east4"></a></li>
+                        <li><a id="east5"></a></li>
+                        <li><a id="east6"></a></li>
+                        <li><a id="east7"></a></li>
+                        <li><a id="east8"></a></li>
+                        <li><a id="east9"></a></li>
+                        <li><a id="east10"></a></li>
+                    </ul>
+                </div>
+                <div id="seven">
+                    <ul data-role="listview" data-inset="true" data-divider-theme="a">
+                        <li data-role="list-divider">臺南</li>
+                        <li><a id="south1"></a></li>
+                        <li><a id="south2"></a></li>
+                        <li><a id="south3"></a></li>
+                        <li><a id="south4"></a></li>
+                        <li><a id="south5"></a></li>
+                        <li><a id="south6"></a></li>
+                        <li><a id="south7"></a></li>
+                        <li><a id="south8"></a></li>
+                        <li><a id="south9"></a></li>
+                        <li><a id="south10"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div data-role="footer" data-theme="a">
+            <div data-role="navbar" data-iconpos="top">
+                <ul>
+                    <li><a href="card.html" data-icon="search" >探索景點</a></li>
+                    <li><a href="editspot.html" data-icon="plus">自建景點</a></li>
+                    <li><a href="mylbs.html" data-icon="eye">旅遊牆(附近景點)</a></li>
+                    <li><a href="myperson.html" data-icon="user" class="ui-btn-active">我的</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //下面為各縣市塞值
+        var str1 = localStorage["新北"]; 
+        var count = 1;
+        str1.split(",").forEach(function (item) {
+
+            document.getElementById("north" + count).innerHTML = item;
+            console.log("item: " + item);
+
+            count = count + 1;
+        });
+
+        var str2 = localStorage["新竹"];
+        count = 1;
+        str2.split(",").forEach(function (item) {
+
+            document.getElementById("money" + count).innerHTML = item;
+            count = count + 1;
+        });
+
+        var str3 = localStorage["臺中"];
+        count = 1;
+        str3.split(",").forEach(function (item) {
+
+            document.getElementById("center" + count).innerHTML = item;
+            count = count + 1;
+        });
+
+        var str4 = localStorage["南投"];     //     localStorge[南投]值就是"紙匠工房" 
+        count = 1;
+        str4.split(",").forEach(function (item) {
+
+            document.getElementById("natou" + count).innerHTML = item; //把item值塞進"natou" + count
+            count = count + 1;
+        });
+
+        var str5 = localStorage["花蓮"];
+        console.log("花蓮: " + str5);
+        count = 1;
+        str5.split(",").forEach(function (item) {
+
+            document.getElementById("flower" + count).innerHTML = item;
+            count = count + 1;
+        });
+
+        var str6 = localStorage["宜蘭"];
+        count = 1;
+        str6.split(",").forEach(function (item) {
+
+            document.getElementById("east" + count).innerHTML = item;
+            count = count + 1;
+        });
+
+        if (!localStorage["臺南"]) {   //判斷"臺南"localStroage是否有存到
+            var st7 = localStorage["臺南"];
+            count = 1;
+            str7.split(",").forEach(function (item) {
+
+                document.getElementById("south" + count).innerHTML = item;
+                count = count + 1;
+            });
+        }
+
+
+    </script>
+
+</body>
+</html>

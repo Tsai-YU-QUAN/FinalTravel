@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!--運用themeroller嘗試三四次-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" rel="stylesheet" />
+
+    <link rel="stylesheet" href="themes/mytheme.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <!--以下運用themeroller--->
+    <link rel="stylesheet" href="css/themes/mytheme.css" />
+    <link rel="stylesheet" href="css/themes/my-custom-theme.css" />
+    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+
+    <link href="css/main.css" rel="stylesheet" />
+
+    <script>
+        var x = document.getElementById("demo");
+        var listname = "";
+        var travelcount = 0;
+        var travelString = "";
+
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        };
+
+        function getName(id) {  //目前選的地點
+            travelcount = 0;     //每選一次，則count歸0
+            travelString = "";   //多個地點在字串集合
+            globaltitle = "";
+            if (id == "list1") {
+                listname = $('#list1').html();
+                console.log("Name: " + $('#list1').html());
+
+            }
+            else if (id == "list2") {
+                listname = $('#list2').html();
+            }
+            else if (id == "list3") {
+                listname = $('#list3').html();
+            }
+            else if (id == "list4") {    //id值就是list4
+                listname = $('#list4').html();  //listname值就是"南投"
+            }
+            else if (id == "list5") {
+                listname = $('#list5').html();
+            }
+            else if (id == "list6") {
+                listname = $('#list6').html();
+            }
+            else if (id == "list7") {
+                listname = $('#list7').html();
+            }
+            getData();
+        }
+        function userfav() {   //喜翻
+            if (typeof (Storage) !== "undefined") { //使用localStorge
+                if (travelcount < 10) {                        //計算喜歡的景點數量
+                    getData();
+                    if (travelString == "") {  //第一次
+                        travelString = globaltitle;
+                    } else {
+                        travelString = travelString + "," + globaltitle;
+                    }
+                    localStorage[listname] = travelString;           //做localStorge，存變數給"我的"用，EX: localStorge[南投] =紙匠工房
+                    travelcount = travelcount + 1;
+                    console.log("travel " + listname + " " + travelString);
+                } else {
+                    alert("此系統預設是一個地點有10個喜歡的景點!您已經超過上限!");
+                }
+
+            } else {
+                alert("此瀏覽器不支援Web Storage");
+            }
+
+        }
+
+        function userNofav() { //不喜翻
+            getData();
+        }
+
+        //參考https://blog.xuite.net/ahdaa/blog1/30797195-%5BjQuery%5DjQuery%E5%8F%96%E5%BE%97JSON%E8%B3%87%E6%96%99
+        //以下讀取card.json; 資料來源是自己建;參考: https://gis.taiwan.net.tw/XMLReleaseALL_public/scenic_spot_C_f.json
+        function getData() {  //取得隨機景點
+            $.ajax({
+                url: "card.json",
+                type: "GET",
+                dataType: "json",
+                success: function (obj) {
+
+                    imgcardArray = [], htitleArray = [], pcontextArray = [];
+
+                    i = 0;
+                    for (i; i < obj.travel.length; i++) {
+
+
+                        if (obj.travel[i].Add.substr(0, 2) == listname) {  //Add是Address EX: 南投南投縣魚池鄉中山路292號，我只取前2個位置
+                            imgcardArray.push(obj.travel[i].Picture1);  //塞圖片網址到陣列
+                            htitleArray.push(obj.travel[i].Name);          //塞標題到陣列
+                            pcontextArray.push(obj.travel[i].Toldescribe);  //塞內容到陣列
+                        }
+                    }
+                    console.log("travel: " + imgcardArray.length);
+                    var index = getRandom(0, imgcardArray.length - 1); //隨機取得南投某個景點: index
+
+                    $("#imgcard").attr("src", imgcardArray[index]);  //前面取得圖片網址
+                    globaltitle = htitleArray[index];
+                    document.getElementById("htitle").innerHTML = htitleArray[index]; //前面取得標題
+                    document.getElementById("pcontext").innerHTML = pcontextArray[index]; //前面取得內容
+                },
+
+                error: function () {
+                    alert("ERROR!!!");
+                }
+            });
+        }
+
+
+    </script>
+</head>
+
+
+<body>
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+
+
+
+    <div data-role="page" data-theme="a">
+        <div data-role="header" data-position="inline">
+            <h1>探索景點</h1> <!--標題-->
+            <p id="demo"></p>
+        </div>
+        <div data-role="content" data-theme="a">
+            <form class="ui-filterable">
+                <!--具有過濾的listview，例如:打"南"，則出現"南投"-->
+                <input id="autocomplete-input" data-type="search" placeholder="搜尋地點...">
+            </form>
+            <ul data-role="listview" data-filter="true" data-filter-reveal="true" data-input="#autocomplete-input" data-inset="true">
+                <li><a id="list1" onclick="getName(id)">新北</a></li>
+                <li><a id="list2" onclick="getName(id)">新竹</a></li>
+                <li><a id="list3" onclick="getName(id)">臺中</a></li>
+                <li><a id="list4" onclick="getName(id)">南投</a></li>
+                <li><a id="list5" onclick="getName(id)">花蓮</a></li>
+                <li><a id="list6" onclick="getName(id)">宜蘭</a></li>
+                <li><a id="list7" onclick="getName(id)">臺南</a></li>
+            </ul>
+
+            <div class="card" style="width: 18rem; margin:0px auto;">
+                <img class="card-img-top" id="imgcard" src="" alt="">
+                <div class="card-body">
+                    <h5 class="card-title" id="htitle"></h5>
+                    <p class="card-text" id="pcontext"></p>
+                    <a onclick="userfav()" class="btn btn-danger">喜翻</a>
+                    <a onclick="userNofav()" class="btn btn-light">不喜翻</a>
+                </div>
+            </div>
+        </div>
+
+        <div data-role="footer" data-theme="a"> <!-- 底下 menu bar-->
+            <div data-role="navbar" data-iconpos="top">
+                <ul>
+                    <li><a href="card.html" data-icon="search" class="ui-btn-active">探索景點</a></li>
+                    <li><a href="editspot.html" data-icon="plus">自建景點</a></li>
+                    <li><a href="mylbs.html" data-icon="eye">旅遊牆(附近景點)</a></li>
+                    <li><a href="myperson.html" data-icon="user">我的</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

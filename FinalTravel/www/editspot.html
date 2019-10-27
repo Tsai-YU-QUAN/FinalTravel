@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" rel="stylesheet" />
+
+    <link rel="stylesheet" href="themes/mytheme.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <link rel="stylesheet" href="css/themes/mytheme.css"/>
+    <link rel="stylesheet" href="css/themes/my-custom-theme.css" />
+    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+
+    <link href="css/main.css" rel="stylesheet" />
+</head>
+<body>
+    <div data-role="page" data-theme="a">
+        <div data-role="header" data-position="inline">
+            <h1>自建景點</h1>
+        </div>
+        <div data-role="content" data-theme="a">
+            <form>
+                <ul data-role="listview" data-inset="true">
+                    <li class="ui-field-contain">
+                        <label for="name1">景點名稱:</label>
+                        <input type="text" name="name1" id="name1" value="" data-clear-btn="true">
+                    </li>
+                    <li class="ui-field-contain">
+                        <label for="select-choice-1" class="select">搜尋地點:</label>
+                        <select name="select-choice-1" id="select-choice-1">
+                            <option value="台北">台北</option>
+                            <option value="新竹">新竹</option>
+                            <option value="台中">台中</option>
+                            <option value="南投">南投</option>
+                            <option value="花蓮">花蓮</option>
+                            <option value="宜蘭">宜蘭</option>
+                            <option value="台南">台南</option>
+                        </select>
+                    </li>
+                    <li class="ui-field-contain">
+                        <label for="name1">景點地址:</label>
+                        <input type="text" name="name2" id="name2" value="" data-clear-btn="true">
+                    </li>
+                    <li class="ui-field-contain">
+                        <label for="name1">電話:</label>
+                        <input type="text" name="name3" id="name3" value="" data-clear-btn="true">
+                    </li>
+                    <li class="ui-field-contain">
+                        <label for="name1">網址:</label>
+                        <input type="text" name="name4" id="name4" value="" data-clear-btn="true">
+                    </li>
+                    <li class="ui-field-contain">
+                        <label for="textarea2">景點簡介:</label>
+                        <textarea cols="80" rows="8" name="textarea2" id="textarea2"></textarea>
+                    </li>
+                    <li class="ui-body ui-body-b">
+                        <fieldset class="ui-grid-a"><!--發佈成功，就塞回到json資料檔，並且轉址到card.html，否則就轉址到myperson.html-->
+                            <div class="ui-block-a"><button type="submit" class="ui-btn ui-corner-all ui-btn-a" onclick="location.href='myperson.html'">取消</button></div>
+                            <div class="ui-block-b"><button type="submit" class="ui-btn ui-corner-all ui-btn-a" onclick="location.href='card.html'">發佈</button></div>
+                        </fieldset>
+                    </li>
+                </ul>
+            </form>
+        </div>
+
+        <div data-role="footer" data-theme="a">
+            <div data-role="navbar" data-iconpos="top">
+                <ul>
+                    <li><a href="card.html" data-icon="search" >探索景點</a></li>
+                    <li><a href="editspot.html" data-icon="plus" class="ui-btn-active">自建景點</a></li>
+                    <li><a href="mylbs.html" data-icon="eye">旅遊牆(附近景點)</a></li>
+                    <li><a href="myperson.html" data-icon="user">我的</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

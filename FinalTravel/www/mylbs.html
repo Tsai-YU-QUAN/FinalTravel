@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html><!--運用themeroller嘗試三四次-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" rel="stylesheet" />
+
+    <link rel="stylesheet" href="themes/mytheme.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <!--以下運用themeroller--->
+    <link rel="stylesheet" href="css/themes/mytheme.css" />
+    <link rel="stylesheet" href="css/themes/my-custom-theme.css" />
+    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+
+    <link href="css/main.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div data-role="page" data-theme="a">
+        <div data-role="header" data-position="inline">
+            <h1>旅遊牆(附近景點)</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <ul data-role="listview" data-inset="true">
+                <!--以下用id把值帶出來; 目的:動態呈現景點-->
+                <li>
+                    <a id="One" href="">
+                        <img id="imgOne" src="">
+                        <h2 id="h2One"></h2>
+                        <p id="pOne"></p>
+                    </a>
+                </li>
+
+                <li>
+                    <a id="Two" href="">
+                        <img id="imgTwo" src="">
+                        <h2 id="h2Two"></h2>
+                        <p id="pTwo"></p>
+                    </a>
+                </li>
+                <li>
+                    <a id="Three" href="">
+                        <img id="imgThree" src="">
+                        <h2 id="h2Three"></h2>
+                        <p id="pThree"></p>
+                    </a>
+                </li>
+                <li>
+                    <a id="Four" href="">
+                        <img id="imgFour" src="">
+                        <h2 id="h2Four"></h2>
+                        <p id="pFour"></p>
+                    </a>
+                </li>
+                <li>
+                    <a id="Five" href="">
+                        <img id="imgFive" src="">
+                        <h2 id="h2Five"></h2>
+                        <p id="pFive"></p>
+                    </a>
+                </li>
+                <li>
+                    <a id="Six" href="">
+                        <img id="imgSix" src="">
+                        <h2 id="h2Six"></h2>
+                        <p id="pSix"></p>
+                    </a>
+                </li>
+                <li>
+                    <a id="Seven" href="">
+                        <img id="imgSeven" src="">
+                        <h2 id="h2Seven"></h2>
+                        <p id="pSeven"></p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div data-role="footer" data-theme="a">
+            <div data-role="navbar" data-iconpos="top">
+                <ul>
+                    <li><a href="card.html" data-icon="search">探索景點</a></li>
+                    <li><a href="editspot.html" data-icon="plus">自建景點</a></li>
+                    <li><a href="mylbs.html" data-icon="eye" class="ui-btn-active">旅遊牆(附近景點)</a></li>
+                    <li><a href="myperson.html" data-icon="user" >我的</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script charset="utf-8">
+
+
+        var curLatitude="", curLongitude="";
+        $(document).ready(function () {
+
+        });
+        function rad(d) {
+            return d * Math.PI / 180.0;
+        }
+
+        //參考: view-source:http://www.storyday.com/wp-content/uploads/2008/09/latlung_dis.html
+        function GetDistance(lat1, lng1, lat2, lng2) { //運算目前與景點距離
+            //console.log("QA " + lat1, lng1, lat2, lng2);
+
+            var radLat1 = rad(lat1);
+            var radLat2 = rad(lat2);
+            var a = radLat1 - radLat2;
+            var b = rad(lng1) - rad(lng2);
+            var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
+                Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+            s = s * 6378.137;// EARTH_RADIUS;
+            s = Math.round(s * 10000) / 10000;
+            return s;
+        }
+
+
+        //參考https://blog.xuite.net/ahdaa/blog1/30797195-%5BjQuery%5DjQuery%E5%8F%96%E5%BE%97JSON%E8%B3%87%E6%96%99
+        //以下讀取lbs.json; 資料來源是自己建
+        $.ajax({
+            url: "lbs.json",
+            type: "GET",
+            dataType: "json",
+            success: function (obj) {
+
+                    var i = 0;
+                    var datas = [];
+
+                    //得到目前經緯度=========================================================
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(showPosition);
+                    } else {
+                        console.log("Geolocation is not supported by this browser.");
+                    }
+
+                    function showPosition(position) {
+                        curLatitude = position.coords.latitude;
+                        curLongitude = position.coords.longitude;                    
+                        console.log("Latitude" + position.coords.latitude + " Longitude" + position.coords.longitude);//表示經緯度
+   //===========================================================================
+                        //塞值到listview
+                        for (i; i < obj.travel.length; i++) {
+                            console.log("距離: " + GetDistance(obj.travel[i].Py, obj.travel[i].Px, curLatitude, curLongitude)); //GetDistance參考: view-source:http://www.storyday.com/wp-content/uploads/2008/09/latlung_dis.html
+                            if (GetDistance(obj.travel[i].Py, obj.travel[i].Px, curLatitude, curLongitude) <= 30) {  //小於30公里
+                                datas.push(obj.travel[i].id-1); //把travel[i].id push到datas 例如:id:1,2,3,4
+                                //console.log("QW " + datas.length + " " + obj.travel[i].id + " " + obj.travel.length);
+
+                            }
+                        }
+                        $("#One").attr("href", obj.travel[datas[0]].url);//datas[0]是index 例如:0
+                        $("#imgOne").attr("src", obj.travel[datas[0]].picture);
+                        document.getElementById("h2One").innerHTML = obj.travel[datas[0]].titileName;//EX: obj.travel[0].titileName就是 高美濕地
+                        document.getElementById("pOne").innerHTML = obj.travel[datas[0]].content;
+
+                        $("#Two").attr("href", obj.travel[datas[1]].url);
+                        $("#imgTwo").attr("src", obj.travel[datas[1]].picture);
+                        document.getElementById("h2Two").innerHTML = obj.travel[datas[1]].titileName;
+                        document.getElementById("pTwo").innerHTML = obj.travel[datas[1]].content;
+
+                        $("#Three").attr("href", obj.travel[datas[2]].url);
+                        $("#imgThree").attr("src", obj.travel[datas[2]].picture);
+                        document.getElementById("h2Three").innerHTML = obj.travel[datas[2]].titileName;
+                        document.getElementById("pThree").innerHTML = obj.travel[datas[2]].content;
+
+                        $("#Four").attr("href", obj.travel[datas[3]].url);
+                        $("#imgFour").attr("src", obj.travel[datas[3]].picture);
+                        document.getElementById("h2Four").innerHTML = obj.travel[datas[3]].titileName;
+                        document.getElementById("pFour").innerHTML = obj.travel[datas[3]].content;
+
+                        $("#Five").attr("href", obj.travel[datas[4]].url);
+                        $("#imgFive").attr("src", obj.travel[datas[4]].picture);
+                        document.getElementById("h2Five").innerHTML = obj.travel[datas[4]].titileName;
+                        document.getElementById("pFive").innerHTML = obj.travel[datas[4]].content;
+
+                        $("#Six").attr("href", obj.travel[datas[5]].url);
+                        $("#imgSix").attr("src", obj.travel[datas[5]].picture);
+                        document.getElementById("h2Six").innerHTML = obj.travel[datas[5]].titileName;
+                        document.getElementById("pSix").innerHTML = obj.travel[datas[5]].content;
+
+                        $("#Seven").attr("href", obj.travel[datas[6]].url);
+                        $("#imgSeven").attr("src", obj.travel[datas[6]].picture);
+                        document.getElementById("h2Seven").innerHTML = obj.travel[datas[6]].titileName;
+                        document.getElementById("pSeven").innerHTML = obj.travel[datas[6]].content;
+                    }
+
+
+
+            },
+
+            error: function () {
+                alert("ERROR!!!");
+            }
+        });
+
+    </script>
+
+
+</body>
+</html>
